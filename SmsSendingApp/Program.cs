@@ -12,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddVendorFactory();
+builder.Services.AddModelValidations();
 
 builder.Services.AddSingleton<DatabaseContext>();
 builder.Services.AddScoped<ISmsRepository, SmsRepository>();
