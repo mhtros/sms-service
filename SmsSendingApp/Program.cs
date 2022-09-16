@@ -1,6 +1,13 @@
+using System.Diagnostics;
+using System.Net;
+using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using SmsSendingApp.Contracts;
 using SmsSendingApp.Data;
+using SmsSendingApp.Entities;
+using SmsSendingApp.Exceptions;
 using SmsSendingApp.Extensions;
+using SmsSendingApp.Models;
 using SmsSendingApp.Repositories;
 using SmsSendingApp.Services;
 
@@ -28,5 +35,42 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapPost("sms", async (
+        [FromBody] SmsModel model,
+        [FromServices] IValidator<SmsModel> validator,
+        [FromServices] IVendorResolver vendorResolver) =>
+    {
+        var validationResult = await validator.ValidateAsync(model);
+
+        if (validationResult.IsValid is false)
+        {
+            var errors = validationResult.Errors.Select(x => new { errors = x.ErrorMessage });
+            return Results.BadRequest(errors);
+        }
+
+        var vendor = vendorResolver.ResolveStrategy(model.ReceiverCountryCode);
+
+        var sms = new Sms
+        {
+            ReceiverNumber = model.ReceiverNumber,
+            SenderEmail = model.SenderEmail,
+            ReceiverCountryCode = model.ReceiverCountryCode,
+            Message = model.Message,
+            RequestId = Activity.Current?.Id ?? Guid.NewGuid().ToString()
+        };
+
+        try
+        {
+            await vendor.SendAsync(sms);
+            return Results.Ok();
+        }
+        catch (MessageContainsNonGreekCharactersException)
+        {
+            return Results.BadRequest(new { Message = "Message Contains non Greek Characters" });
+        }
+    })
+    .Produces((int)HttpStatusCode.Created)
+    .ProducesProblem((int)HttpStatusCode.BadRequest);
 
 app.Run();
