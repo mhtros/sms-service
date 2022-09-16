@@ -1,4 +1,6 @@
+using SmsSendingApp.Contracts;
 using SmsSendingApp.Data;
+using SmsSendingApp.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,8 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Database
 builder.Services.AddSingleton<DatabaseContext>();
+builder.Services.AddScoped<ISmsRepository, SmsRepository>();
 
 var app = builder.Build();
 
