@@ -2,7 +2,7 @@
 
 public class MessageContainsNonGreekCharactersException : Exception
 {
-    public string Message { get; }
+    public override string Message { get; }
 
     public MessageContainsNonGreekCharactersException(string message)
     {
