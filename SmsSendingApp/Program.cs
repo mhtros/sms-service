@@ -50,6 +50,7 @@ app.MapPost("sms", async (
         }
 
         var vendor = vendorResolver.ResolveStrategy(model.ReceiverCountryCode);
+        var requestId = Activity.Current?.Id ?? Guid.NewGuid().ToString();
 
         var sms = new Sms
         {
@@ -57,13 +58,13 @@ app.MapPost("sms", async (
             SenderEmail = model.SenderEmail,
             ReceiverCountryCode = model.ReceiverCountryCode,
             Message = model.Message,
-            RequestId = Activity.Current?.Id ?? Guid.NewGuid().ToString()
+            RequestId = requestId
         };
 
         try
         {
             await vendor.SendAsync(sms);
-            return Results.Ok();
+            return Results.Ok(requestId);
         }
         catch (MessageContainsNonGreekCharactersException)
         {
