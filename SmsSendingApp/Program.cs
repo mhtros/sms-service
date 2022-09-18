@@ -75,3 +75,7 @@ app.MapPost("sms", async (
     .ProducesProblem((int)HttpStatusCode.BadRequest);
 
 app.Run();
+
+public partial class Program
+{
+}

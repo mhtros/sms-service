@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmsSendingApp", "SmsSending
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmsSendingApp.Tests", "SmsSendingApp.Tests\SmsSendingApp.Tests.csproj", "{16D91D7B-FA73-4279-8D04-D82BB6AAC141}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmsSendingApp.IntegrationTests", "SmsSendingApp.IntegrationTests\SmsSendingApp.IntegrationTests.csproj", "{C64CE6B8-211F-4F81-9EE4-7802E7BAE1E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{16D91D7B-FA73-4279-8D04-D82BB6AAC141}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16D91D7B-FA73-4279-8D04-D82BB6AAC141}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16D91D7B-FA73-4279-8D04-D82BB6AAC141}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C64CE6B8-211F-4F81-9EE4-7802E7BAE1E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C64CE6B8-211F-4F81-9EE4-7802E7BAE1E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C64CE6B8-211F-4F81-9EE4-7802E7BAE1E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C64CE6B8-211F-4F81-9EE4-7802E7BAE1E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
